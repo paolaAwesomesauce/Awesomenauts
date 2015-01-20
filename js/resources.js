@@ -5,8 +5,11 @@ game.resources = [
 	 * {name: "example", type:"image", src: "data/img/example.png"},
 	 */
 
+
+	 // Loads our background tiles
 	 {name: "background-tiles", type:"image", src: "data/img/background-tiles.png"},
 
+	 // loads meta tiles 
 	 {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
 
 	/* Atlases 
@@ -20,6 +23,7 @@ game.resources = [
 	 * {name: "example01", type: "tmx", src: "data/map/example01.json"},
  	 */
 
+ 	 // load map called test 
  	 {name: "level01", type: "tmx", src: "data/map/test.tmx"},
 
 	/* Background music. 
