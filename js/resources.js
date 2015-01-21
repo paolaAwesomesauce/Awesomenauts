@@ -12,7 +12,8 @@ game.resources = [
 	 // loads meta tiles 
 	 {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
 
-	  {name: "player", type:"image", src: "data/img/orcSpear.png"},
+	 //loads player images
+	 {name: "player", type:"image", src: "data/img/orcSpear.png"},
 
 	/* Atlases 
 	 * @example

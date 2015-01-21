@@ -9,6 +9,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		//loads level01 on playscreen. Uses lower case letters first and then uppercase.
 		me.levelDirector.loadLevel("level01");
 
+		//loads player
 		var player = me.pool.pull("player", 0, 420, {});
 
 		me.game.world.addChild(player, 5);
