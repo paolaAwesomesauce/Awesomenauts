@@ -13,7 +13,8 @@ game.PlayerEntity = me.Entity.extend({
 			}
 		}]);
 
-		this.body.setVelocity(5, 0);
+		// sets were player is at 
+		this.body.setVelocity(5, 20);
 	},
 
 	update: function(delta){
