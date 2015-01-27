@@ -16,7 +16,7 @@ game.resources = [
 	 {name: "player", type:"image", src: "data/img/orcSpear.png"},
 
 	 //loads tower image
-	  {name: "tower", type:"image", src: "data/img/tower-round.svg.png"},
+	  {name: "tower", type:"image", src: "data/img/tower_round.svg.png"},
 
 	/* Atlases 
 	 * @example

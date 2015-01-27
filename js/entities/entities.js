@@ -16,7 +16,11 @@ game.PlayerEntity = me.Entity.extend({
 		// sets were player is at 
 		this.body.setVelocity(5, 20);
 
+		// screen follows player everywhere(x and y axis)
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+
 		// animation when standing
+		// renderable is class melonJS has made for animation 
 		this.renderable.addAnimation("idle", [78]);
 
 		// animation when walking
@@ -56,6 +60,7 @@ game.PlayerEntity = me.Entity.extend({
 
 });
 
+
 // this class creates our PlayerBaseEntity ,which is the tower, on the playscreen; 
 game.PlayerBaseEntity = me.Entity.extend({
 	init : function(x, y, settings){
@@ -77,13 +82,23 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.body.onCollision = this.onCollision.bind(this);
 
 		this.type = "PlayerBaseEntity";
+
+		// animation for when tower has full health
+		this.renderable.addAnimation("idle", [0]);
+
+		//animation when tower is broken
+		this.renderable.addAnimation("broken", [1]);
+
+		// animation tower starts with
+		this.renderable.setCurrentAnimation("idle");
 	},
 
-	update: function(){
+	update: function(delta){
 	// if statement checks our health and it is less than 0 we r declared dead 
 
 		if (this.health<=0) {
 			this.broken = true;
+			this.renderable.setCurrentAnimation("broken");
 		};
 
 		this.body.update(delta);
@@ -119,12 +134,22 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.body.onCollision = this.onCollision.bind(this);
 
 		this.type = "EnemyBaseEntity";
+
+		// animation for when tower has full health
+		this.renderable.addAnimation("idle", [0]);
+
+		//animation when tower is broken
+		this.renderable.addAnimation("broken", [1]);
+
+		// animation tower starts with
+		this.renderable.setCurrentAnimation("idle");
 	},
 
-	update: function(){
+	update: function(delta){
 	// if statement checks our is less than 0 and if we r declared dead 
 		if (this.health<=0) {
 			this.broken = true;
+			this.renderable.setCurrentAnimation("broken");
 		};
 
 		this.body.update(delta);
