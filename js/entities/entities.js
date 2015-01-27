@@ -55,3 +55,85 @@ game.PlayerEntity = me.Entity.extend({
 	}
 
 });
+
+// this class creates our PlayerBaseEntity ,which is the tower, on the playscreen; 
+game.PlayerBaseEntity = me.Entity.extend({
+	init : function(x, y, settings){
+		this._super(me.Entity, 'init', [x, y, {
+			image: "tower",
+			width: 100,
+			height: 100,
+			spritewidth: "100",
+			spriteheight: "100",
+			getShape: function(){
+				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+			}
+		}]);
+
+		// says tower hasnt been destroyed
+		this.broken = false;
+		this.health = 10;
+		this.alwaysUpdate = true;
+		this.body.onCollision = this.onCollision.bind(this);
+
+		this.type = "PlayerBaseEntity";
+	},
+
+	update: function(){
+	// if statement checks our health and it is less than 0 we r declared dead 
+
+		if (this.health<=0) {
+			this.broken = true;
+		};
+
+		this.body.update(delta);
+
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
+
+	onCollision: function(){
+
+	}
+});
+
+
+// this class creates our EnemyBaseEntity, which is our enemys tower, on the playscreen; 
+game.EnemyBaseEntity = me.Entity.extend({
+	init : function(x, y, settings){
+		this._super(me.Entity, 'init', [x, y, {
+			image: "tower",
+			width: 100,
+			height: 100,
+			spritewidth: "100",
+			spriteheight: "100",
+			getShape: function(){
+				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+			}
+		}]);
+
+		// says tower hasnt been destroyed
+		this.broken = false;
+		this.health = 10;
+		this.alwaysUpdate = true;
+		this.body.onCollision = this.onCollision.bind(this);
+
+		this.type = "EnemyBaseEntity";
+	},
+
+	update: function(){
+	// if statement checks our is less than 0 and if we r declared dead 
+		if (this.health<=0) {
+			this.broken = true;
+		};
+
+		this.body.update(delta);
+
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
+
+	onCollision: function(){
+		
+	}
+});
