@@ -26,6 +26,9 @@ game.PlayerEntity = me.Entity.extend({
 		// animation when walking
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
 
+		//animation for when player is attacking
+		this.renderable.addAnimation("attack", [65, 66, 67,68, 69, 70, 71, 72], 80);
+
 		// animation that player starts with
 		this.renderable.setCurrentAnimation("idle");
 	},
@@ -41,7 +44,17 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.vel.x = 0;
 		}
 
-		if (this.body.vel.x !== 0) {
+		// if/else stament adds animation for attack when attack key is pressed
+		if (me.input.isKeyPressed("attack")) {
+			//checks if animation has happen so it wont repeat again
+			if (!this.renderable.isCurrentAnimation("attack")) {
+				//Sets the current animation to attack and once that is over and goes back to idle animation
+				this.renderable.setCurrentAnimation("attack", "idle");
+				// Makes it so that the next time we start this sequence we begin from the first animation, not wherever we lfet off when we switched to another animation
+				//this.renderable.setCurrentAnimationFrame();
+			}
+		}
+		else if (this.body.vel.x !== 0) {
 		// makes animation happend
 			if (!this.renderable.isCurrentAnimation("walk")) {
 
@@ -51,6 +64,18 @@ game.PlayerEntity = me.Entity.extend({
 		else{
 			this.renderable.setCurrentAnimation("idle");
 		}
+		if (me.input.isKeyPressed("attack")) {
+			//checks if animation has happen so it wont repeat again
+			if (!this.renderable.isCurrentAnimation("attack")) {
+				//Sets the current animation to attack and once that is over and goes back to idle animation
+				this.renderable.setCurrentAnimation("attack", "idle");
+				// Makes it so that the next time we start this sequence we begin from the first animation, not wherever we lfet off when we switched to another animation
+				this.renderable.setCurrentAnimationFrame();
+			}
+		}
+
+
+
 		// if dont update the player wont know what to do with code above
 		this.body.update(delta);
 

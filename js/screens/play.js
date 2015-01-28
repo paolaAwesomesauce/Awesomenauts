@@ -14,7 +14,11 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		me.game.world.addChild(player, 5);
 
+		//allows right arrow key to be used to make player move 
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
+
+		// binds the 'a' key to allow player to attack
+		me.input.bindKey(me.input.KEY.A, "attack");
 
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
