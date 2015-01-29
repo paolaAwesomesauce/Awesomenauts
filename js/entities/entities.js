@@ -16,6 +16,9 @@ game.PlayerEntity = me.Entity.extend({
 		// sets were player is at 
 		this.body.setVelocity(5, 20);
 
+		//Keeps track of which direction your character is going
+		this.facing = "right";
+
 		// screen follows player everywhere(x and y axis)
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
@@ -35,12 +38,14 @@ game.PlayerEntity = me.Entity.extend({
 
 	update: function(delta){
 		if (me.input.isKeyPressed("right")) {
+			this.facing = "left";
 			// adds to the position of my x by velocity define above in setVelocity() and multiplying it by me.timertick: makes the movemnt look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
 			
 			this.flipX(true);
 		}
 		else if (me.input.isKeyPressed("left")){
+			this.facing = "left";
 			// allows player to move left 
 			this.body.vel.x -= this.body.accel.x * me.timer.tick;
 			this.flipX(false);
@@ -85,13 +90,29 @@ game.PlayerEntity = me.Entity.extend({
 			}
 		}
 
-
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 		// if dont update the player wont know what to do with code above
 		this.body.update(delta);
 
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	collideHandler: function(response){
+		if (response.b.type === 'EnemyBaseEntity') {
+			var ydif = this.pos.y - response.b.pos.y;
+			var xdif = this.pos.x - response.b.pos.x;
+
+			if (xdif>-35 && this.facing==='right' && xdif<0) {
+				this.body.vel.x = 0;
+				this.pos.x = this.pos.x -1;
+			}
+			else if (xdif<70 && this.facing==='left' && xdif>0) {
+				this.body.vel.x = 0;
+				this.pos.x = this.pos.x +1;
+			}
+		};
 	}
 
 });
