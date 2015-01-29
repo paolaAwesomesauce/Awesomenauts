@@ -17,6 +17,12 @@ game.PlayScreen = me.ScreenObject.extend({
 		//allows right arrow key to be used to make player move 
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
 
+		// binds left arrow key so player can move left
+		me.input.bindKey(me.input.KEY.LEFT, "left");
+
+		//binds space key so player can jump up
+		me.input.bindKey(me.input.KEY.SPACE, "jump");
+
 		// binds the 'a' key to allow player to attack
 		me.input.bindKey(me.input.KEY.A, "attack");
 

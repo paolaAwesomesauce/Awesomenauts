@@ -40,9 +40,20 @@ game.PlayerEntity = me.Entity.extend({
 			
 			this.flipX(true);
 		}
+		else if (me.input.isKeyPressed("left")){
+			// allows player to move left 
+			this.body.vel.x -= this.body.accel.x * me.timer.tick;
+			this.flipX(false);
+		}
 		else{
 			this.body.vel.x = 0;
 		}
+
+		// if/else statment allows player to jump by checking if the space key is pressed and if player isnt already jumping or falling
+		if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
+			this.jumping = true;
+			this.body.vel.y -= this.body.accel.y * me.timer.tick;
+		};
 
 		// if/else stament adds animation for attack when attack key is pressed
 		if (me.input.isKeyPressed("attack")) {
@@ -96,7 +107,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function(){
-				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 		}]);
 
@@ -148,7 +159,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function(){
-				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 		}]);
 
