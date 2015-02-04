@@ -233,3 +233,42 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.health--;
 	}
 });
+
+
+// this class creates enemy player on the playscreen; spritewidth and spriteheight sets size of player.
+game.EnemyCreep = me.Entity.extend({
+// sets properties of enemy player 
+	init: function(x, y, settings){
+		this._super(me.Entity, 'init', [x, y, {
+			image: "creep1",
+			width: 32,
+			height: 64,
+			spritewidth: "32",
+			spriteheight: "64",
+			getShape: function(){
+				return(new me.Rect(0, 0 ,32, 64)).toPolygon();
+			}
+		}]);
+
+		// sets health of player starting at 10
+		this.health = 10;
+		// always keeps the enemy player updated
+		this.alwaysUpdate = true;
+
+		// sets were player is located 
+		this.setVelocity(3, 20);
+
+		// sets type of player
+		this.type = "EnemyCreep";
+
+		// sets the animation of enemy player 
+		this.renderable.addAnimation("walk", [3, 4, 5], 80);
+		this.renderable.setCurrentAnimation("walk");
+	},
+
+	update: function(){
+
+	}
+	
+
+});
