@@ -239,7 +239,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 game.EnemyCreep = me.Entity.extend({
 // sets properties of enemy player 
 	init: function(x, y, settings){
-		this._super(me.Entity, 'init', [x, y, {
+		this._super(me.Entity, "init", [x, y, {
 			image: "creep1",
 			width: 32,
 			height: 64,
@@ -251,7 +251,7 @@ game.EnemyCreep = me.Entity.extend({
 		}]);
 
 		// sets health of player starting at 10
-		this.health = 10;
+		this.health = 10; 
 		// always keeps the enemy player updated
 		this.alwaysUpdate = true;
 
@@ -267,6 +267,12 @@ game.EnemyCreep = me.Entity.extend({
 	},
 
 	update: function(){
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+		this.body.update(delta);
+
+		this._super(me.Entity, "update", [delta]);
+
+		return true;
 
 	}
 	
