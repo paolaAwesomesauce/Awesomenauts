@@ -148,7 +148,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 
-		this.type = "PlayerBaseEntity";
+		this.type = "PlayerBase";
 
 		// animation for when tower has full health
 		this.renderable.addAnimation("idle", [0]);
@@ -172,6 +172,11 @@ game.PlayerBaseEntity = me.Entity.extend({
 
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	// makes player lose health when its damaged 
+	loseHealth: function(damage){
+		this.health = this.health - damage;
 	},
 
 	onCollision: function(){
@@ -255,6 +260,18 @@ game.EnemyCreep = me.Entity.extend({
 		// always keeps the enemy player updated
 		this.alwaysUpdate = true;
 
+		// this.attacking lets us know if thge enemy is currently attacking
+		this.attacking = false;
+
+		// keeps track of when our creep last attacked anything
+		this.lastAttacking = new Date().getTime();
+
+		// keeps track of the ;ast time our creep hit anything
+		this.lastHit = new Date().getTime();
+
+		// timer
+		this.new = new Date().getTime();
+
 		// sets were player is located 
 		this.body.setVelocity(3, 20);
 
@@ -267,14 +284,38 @@ game.EnemyCreep = me.Entity.extend({
 	},
 
 	update: function(){
+		// Timer set to check collisons refreshes every single time
+		this.now = new Date().getTime();
+
 		// makes creeps move 
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+
+		// checks of creep is colliding with player
+		me.collison.check(this, true, this.collideHandler.bind(this), true);
+
 		this.body.update(delta);
 
 		this._super(me.Entity, "update", [delta]);
 
 		return true;
 
+	},
+
+	collideHandler: function(response){
+		if (response.b.type === 'PlayerBase') {
+			this.attacking = true;
+			// this.lastAttacking = this.now;
+			this.body.vel.x = 0;
+			// keeps creep moving to the right to maintain its position
+			this.pos.x = this.pos.x + 1;
+			// checks that it has been at least 1 second since this creep hit a base
+			if ((this.now-this.lastHit >= 1000)) {
+				// updates the lasthit timer
+				this.lastHit = this.now;
+				// makes the player base call its loseHealth function and passes at a damge of 1
+				response.b.loseHealth(1);
+			}
+		}
 	}
 	
 
