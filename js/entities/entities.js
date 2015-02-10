@@ -13,6 +13,10 @@ game.PlayerEntity = me.Entity.extend({
 			}
 		}]);
 
+		this.type = "PlayerEntity";
+
+		this.health = 20;
+		
 		// sets were player is at 
 		this.body.setVelocity(5, 20);
 
@@ -95,6 +99,10 @@ game.PlayerEntity = me.Entity.extend({
 
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	loseHealth: function(damage){
+		this.health = this.health - damage;
 	},
 
 	collideHandler: function(response){
@@ -314,6 +322,26 @@ game.EnemyCreep = me.Entity.extend({
 				this.lastHit = this.now;
 				// makes the player base call its loseHealth function and passes at a damge of 1
 				response.b.loseHealth(1);
+			}
+		}
+		else if (response.b.type === 'PlayerBase') {
+			var xdif = this.pos.x - response.b.pos.x;
+
+			this.attacking = true;
+
+			// this.lastAttacking = this.now;
+
+			if (xdif>0) {
+			// Kepps moving the creep to the right to maintain its position
+				this.pos.x = this.pos.x + 1;
+				this.body.vel.x = 0;
+			}
+			// checks that it has been less then 1 second since it hit somehting
+			if ((this.now-this.lastHit >= 1000) && xdif>0) {
+				// updates the last hit time
+				this.lastHit = this.now;
+				// makes the player call its lose health function and passes it as a damage of one 
+				response.b.loseHealth(1); 
 			}
 		}
 	}
