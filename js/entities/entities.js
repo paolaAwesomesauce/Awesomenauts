@@ -70,6 +70,7 @@ game.PlayerEntity = me.Entity.extend({
 		if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
 			this.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
+			me.audio.play("stomp");
 		};
 
 		// if/else stament adds animation for attack when attack key is pressed
@@ -80,6 +81,8 @@ game.PlayerEntity = me.Entity.extend({
 				this.renderable.setCurrentAnimation("attack", "idle");
 				// Makes it so that the next time we start this sequence we begin from the first animation, not wherever we lfet off when we switched to another animation
 				//this.renderable.setCurrentAnimationFrame();
+				me.audio.play("jump");
+
 			}
 		}
 		else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) {
