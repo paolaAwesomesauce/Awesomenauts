@@ -39,8 +39,9 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
-		//loads player,towers,enemy players, and game manager timer
+		//loads players,towers,enemy players, and game manager timer
 		me.pool.register("player", game.PlayerEntity, true);
+		me.pool.register("Player2", game.Player2Entity, true);
 		me.pool.register("PlayerBase", game.PlayerBaseEntity);
 		me.pool.register("EnemyBase", game.EnemyBaseEntity);
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);
