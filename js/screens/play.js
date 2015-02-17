@@ -14,7 +14,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.game.world.addChild(player, 5);
 
 		//loads player
-		var player = me.pool.pull("player", 0, 420, {});
+		var player = me.pool.pull("Player2", 0, 420, {});
 
 		me.game.world.addChild(player, 5);
 

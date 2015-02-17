@@ -135,7 +135,27 @@ game.PlayerEntity = me.Entity.extend({
 				this.lastHit = this.now;
 				response.b.loseHealth();
 			}
-		};
+		}
+		else if (response.b.type === 'EnemyCreep') {
+			var xdif = this.pos.x - response.b.pos.x;
+			var ydif = this.pos.y - response.b.pos.y;
+			if (xdif>0) {
+				this.pos.x = this.pos.x + 1;
+				if (this.facing === "left") {
+					this.body.vel.x = 0;
+				}
+			}
+			else{
+				this.pos.x = this.pos.x - 1;
+				if (this.facing === "right") {
+					this.vel.x = 0;
+				}
+			}
+			if (this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000 && (Math.abs(ydif) <= 40) && ((xdif>0) && this.facing === "left") || ((xdif<0) && this.facing === "right")) {
+				this.lastHit = this.now;
+				response.b.loseHealth(1);
+			}
+		}
 	}
 
 });
@@ -296,7 +316,16 @@ game.EnemyCreep = me.Entity.extend({
 		this.renderable.setCurrentAnimation("walk");
 	},
 
+	// makes player lose health
+	loseHealth: function(damage){
+		this.health = this.health - damage;
+	},
+
 	update: function(){
+		// makes player die
+		if (this.health <= 0) {
+			me.game.world.removeChild(this);
+		}
 		// Timer set to check collisons refreshes every single time
 		this.now = new Date().getTime();
 
@@ -396,7 +425,7 @@ game.Player2 = me.Entity.extend({
 		this.renderable.setCurrentAnimation("walk");
 	},
 
-	update: function(){
+	update: function(delta){
 		// Timer set to check collisons refreshes every single time
 		this.now = new Date().getTime();
 
@@ -404,7 +433,7 @@ game.Player2 = me.Entity.extend({
 		this.body.vel.x += this.body.accel.x * me.timer.tick;
 
 		// checks of creep is colliding with player
-		me.collison.check(this, true, this.collideHandler.bind(this), true);
+		//me.collison.check(this, true, this.collideHandler.bind(this), true);
 
 		this.body.update(delta);
 
