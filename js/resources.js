@@ -17,10 +17,14 @@ game.resources = [
 
 	 //loads tower image
 	  {name: "tower", type:"image", src: "data/img/tower_round.svg.png"},
-
+	  // loads creep image
 	  {name: "creep1", type:"image", src: "data/img/brainmonster.png"},
 
+	  // loads second player image
 	  {name: "Player2", type:"image", src: "data/img/gloop.png"},
+
+	  // loads title screen player
+	   {name: "title-screen", type:"image", src: "data/img/title.png"},
 
 
 	/* Atlases 
