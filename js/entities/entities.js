@@ -28,6 +28,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
 		this.dead = false;
+		this.attack = game.data.playerAttack;
 		this.lastAttack = new Date().getTime();
 
 		// screen follows player everywhere(x and y axis)
@@ -159,6 +160,13 @@ game.PlayerEntity = me.Entity.extend({
 			}
 			if (this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer && (Math.abs(ydif) <= 40) && ((xdif>0) && this.facing === "left") || ((xdif<0) && this.facing === "right")) {
 				this.lastHit = this.now;
+
+				// if the creeps health is less than our attack code in if statement
+				if (response.b.loseHealth  <= game.data.playerAttack) {
+					// adds one gold per creep kill
+					game.data.gold += 1;
+				}
+
 				response.b.loseHealth(game.data.playerAttack);
 			}
 		}
@@ -494,7 +502,7 @@ game.GameManager = Object.extend({
 	init: function(x, y, settings){
 		this.now = new Date().getTime();
 		this.lastCreep = new Date().getTime();
-
+		this.paused = false;
 		this.alwaysUpdate = true;
 	},
 
@@ -505,6 +513,12 @@ game.GameManager = Object.extend({
 		if (game.data.player) {
 			me.game.world.removeChild(game.data.player);
 			me.state.current().resetPlayer(10, 0);
+		}
+
+		// adds gold whenever we kill a creep
+		if (Math.round(this.now/1000)%20 ==== 0 && (this.now - this.lastCreep >=1000)) {
+			game.data.gold += 1;
+			console.log("Current gold: " + game.data.gold);
 		}
 
 		if (Math.round(this.now/1000)%10 === 0 && (this.now - this.lastCreep >= 1000)) {
