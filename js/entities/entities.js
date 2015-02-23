@@ -516,7 +516,7 @@ game.GameManager = Object.extend({
 		}
 
 		// adds gold whenever we kill a creep
-		if (Math.round(this.now/1000)%20 ==== 0 && (this.now - this.lastCreep >=1000)) {
+		if (Math.round(this.now/1000)%20 === 0 && (this.now - this.lastCreep >=1000)) {
 			game.data.gold += 1;
 			console.log("Current gold: " + game.data.gold);
 		}
