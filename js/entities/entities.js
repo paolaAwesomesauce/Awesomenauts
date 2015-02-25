@@ -1,6 +1,25 @@
 // this class creates player on the playscreen; spritewidth and spriteheight sets size of player.
 game.PlayerEntity = me.Entity.extend({
 	init: function(x, y, settings){
+		this.setSuper();
+		this.setPlayerTimers();
+		this.setAttributes();
+
+		this.type = "PlayerEntity";
+
+		this.setFlags();
+
+		// screen follows player everywhere(x and y axis)
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+
+		this.addAnimation();
+
+		// animation that player starts with
+		this.renderable.setCurrentAnimation("idle");
+	},
+
+	// has most of init function
+	setSuper: function(){
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player",
 			width: 64,
@@ -12,28 +31,31 @@ game.PlayerEntity = me.Entity.extend({
 				return(new me.Rect(0,0,64,64)).toPolygon();	
 			}
 		}]);
+	},
 
-		this.type = "PlayerEntity";
+	// Fuction holds all of our timers
+	setPlayerTimers: function(){
+		// variables that help us tell when the last attack on base happend 
+		this.now = new Date().getTime();
+		this.lastHit = this.now;
 
+		// havent used this
+		this.lastAttack = new Date().getTime(); 
+	},
+
+	// function holds things we editited from player
+	setAttributes: function(){
 		// sets health of player
 		this.health = game.data.playerHealth;
 
 		// sets were player is at 
-		this.body.setVelocity(game.data.playerMoveSpeed, 20);
+		this.body.setVelocity(game.data.playerMoveSpeed, 20)
 
-		//Keeps track of which direction your character is going
-		this.facing = "right";
-
-		// variables that help us tell when the last attack on base happend 
-		this.now = new Date().getTime();
-		this.lastHit = this.now;
-		this.dead = false;
 		this.attack = game.data.playerAttack;
-		this.lastAttack = new Date().getTime();
+	},
 
-		// screen follows player everywhere(x and y axis)
-		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
-
+	// function hold different animations 
+	addAnimation: function(){
 		// animation when standing
 		// renderable is class melonJS has made for animation 
 		this.renderable.addAnimation("idle", [78]);
@@ -43,9 +65,13 @@ game.PlayerEntity = me.Entity.extend({
 
 		//animation for when player is attacking
 		this.renderable.addAnimation("attack", [65, 66, 67,68, 69, 70, 71, 72], 80);
+	},
 
-		// animation that player starts with
-		this.renderable.setCurrentAnimation("idle");
+	setFlags: function(){
+		//Keeps track of which direction your character is going
+		this.facing = "right";
+
+		this.dead = false;
 	},
 
 	update: function(delta){
