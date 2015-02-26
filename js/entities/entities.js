@@ -77,34 +77,9 @@ game.PlayerEntity = me.Entity.extend({
 	update: function(delta){
 		// keeps our timer up to date
 		this.now = new Date().getTime();
-		// kills the player 
-		if (this.health <= 0) {
-			this.dead = true;
-		}
+		this.dead = checkIfDead();
 
-		if (me.input.isKeyPressed("right")) {
-			this.facing = "left";
-			// adds to the position of my x by velocity define above in setVelocity() and multiplying it by me.timertick: makes the movemnt look smooth
-			this.body.vel.x += this.body.accel.x * me.timer.tick;
-			
-			this.flipX(true);
-		}
-		else if (me.input.isKeyPressed("left")){
-			this.facing = "left";
-			// allows player to move left 
-			this.body.vel.x -= this.body.accel.x * me.timer.tick;
-			this.flipX(false);
-		}
-		else{
-			this.body.vel.x = 0;
-		}
-
-		// if/else statment allows player to jump by checking if the space key is pressed and if player isnt already jumping or falling
-		if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
-			this.jumping = true;
-			this.body.vel.y -= this.body.accel.y * me.timer.tick;
-			me.audio.play("stomp");
-		};
+		this.checkKeyPressesAndMove();
 
 		// if/else stament adds animation for attack when attack key is pressed
 		if (me.input.isKeyPressed("attack")) {
@@ -137,6 +112,53 @@ game.PlayerEntity = me.Entity.extend({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
+
+	checkIfDead: function(){
+		// kills the player 
+		if (this.health <= 0) {
+			return = true;
+		}
+		return false;
+	},
+
+	checkKeyPressesAndMove: function(){
+		if (me.input.isKeyPressed("right")) {
+			this.moveRight();
+		}
+		else if (me.input.isKeyPressed("left")){
+			this.moveLeft();
+		}
+		else{
+			this.body.vel.x = 0;
+		}
+
+		// if/else statment allows player to jump by checking if the space key is pressed and if player isnt already jumping or falling
+		if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
+			this.jump();
+		};
+
+	},	
+
+	moveRight: function(){
+		this.facing = "left";
+		// adds to the position of my x by velocity define above in setVelocity() and multiplying it by me.timertick: makes the movemnt look smooth
+		this.body.vel.x += this.body.accel.x * me.timer.tick;
+			
+		this.flipX(true);
+	},
+
+	moveLeft: function(){
+		this.facing = "left";
+		// allows player to move left 
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+		this.flipX(false);
+	},	
+
+	jump: function(){
+		this.jumping = true;
+		this.body.vel.y -= this.body.accel.y * me.timer.tick;
+		me.audio.play("stomp");
+	},	
 
 	// function makes player lose health
 	loseHealth: function(damage){
