@@ -72,6 +72,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.facing = "right";
 
 		this.dead = false;
+		this.attacking = false;
 	},
 
 	update: function(delta){
@@ -81,32 +82,10 @@ game.PlayerEntity = me.Entity.extend({
 
 		this.checkKeyPressesAndMove();
 
-		// if/else stament adds animation for attack when attack key is pressed
-		if (me.input.isKeyPressed("attack")) {
-			//checks if animation has happen so it wont repeat again
-			if (!this.renderable.isCurrentAnimation("attack")) {
-				//Sets the current animation to attack and once that is over and goes back to idle animation
-				this.renderable.setCurrentAnimation("attack", "idle");
-				// Makes it so that the next time we start this sequence we begin from the first animation, not wherever we lfet off when we switched to another animation
-				//this.renderable.setCurrentAnimationFrame();
-				me.audio.play("jump");
-
-			}
-		}
-		else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) {
-		// makes animation happend
-			if (!this.renderable.isCurrentAnimation("walk")) {
-
-				this.renderable.setCurrentAnimation("walk");
-			}
-		}
-		else if (!this.renderable.isCurrentAnimation("attack")){
-			this.renderable.setCurrentAnimation("idle");
-		}
+		this.setAnimation();
 
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
-		// if dont update the player wont know what to do with code above
 		this.body.update(delta);
 
 		this._super(me.Entity, "update", [delta]);
@@ -135,7 +114,9 @@ game.PlayerEntity = me.Entity.extend({
 		// if/else statment allows player to jump by checking if the space key is pressed and if player isnt already jumping or falling
 		if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
 			this.jump();
-		};
+		}
+
+		this.attacking = me.input.isKeyPressed("attack");
 
 	},	
 
@@ -160,6 +141,30 @@ game.PlayerEntity = me.Entity.extend({
 		me.audio.play("stomp");
 	},	
 
+	setAnimation: function(){
+			// if/else stament adds animation for attack when attack key is pressed
+		if (this.attacking) {
+			//checks if animation has happen so it wont repeat again
+			if (!this.renderable.isCurrentAnimation("attack")) {
+				//Sets the current animation to attack and once that is over and goes back to idle animation
+				this.renderable.setCurrentAnimation("attack", "idle");
+				// Makes it so that the next time we start this sequence we begin from the first animation, not wherever we lfet off when we switched to another animation
+				//this.renderable.setCurrentAnimationFrame();
+				me.audio.play("jump");
+
+			}
+		}
+		else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) {
+		// makes animation happend
+			if (!this.renderable.isCurrentAnimation("walk")) {
+
+				this.renderable.setCurrentAnimation("walk");
+			}
+		}
+		else if (!this.renderable.isCurrentAnimation("attack")){
+			this.renderable.setCurrentAnimation("idle");
+		}
+	},
 	// function makes player lose health
 	loseHealth: function(damage){
 		this.health = this.health - damage;
