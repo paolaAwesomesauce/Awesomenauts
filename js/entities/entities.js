@@ -1,7 +1,7 @@
 // this class creates player on the playscreen; spritewidth and spriteheight sets size of player.
 game.PlayerEntity = me.Entity.extend({
 	init: function(x, y, settings){
-		this.setSuper();
+		this.setSuper(x, y);
 		this.setPlayerTimers();
 		this.setAttributes();
 
@@ -19,7 +19,7 @@ game.PlayerEntity = me.Entity.extend({
 	},
 
 	// has most of init function
-	setSuper: function(){
+	setSuper: function(x, y){
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player",
 			width: 64,
@@ -78,7 +78,7 @@ game.PlayerEntity = me.Entity.extend({
 	update: function(delta){
 		// keeps our timer up to date
 		this.now = new Date().getTime();
-		this.dead = checkIfDead();
+		this.dead = this.checkIfDead();
 
 		this.checkKeyPressesAndMove();
 
@@ -95,7 +95,7 @@ game.PlayerEntity = me.Entity.extend({
 	checkIfDead: function(){
 		// kills the player 
 		if (this.health <= 0) {
-			return = true;
+			return  true;
 		}
 		return false;
 	},

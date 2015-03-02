@@ -12,9 +12,15 @@ game.PlayScreen = me.ScreenObject.extend({
 		// loads GameManager
 		this.resetPlayer(0, 420);
 
+		//loads game manager
+		var gameTimerManager = me.pool.pull("GameTimerManager", 0, 0, {});
+		me.game.world.addChild(gameTimerManager, 0);
+
+		var heroDeathManager = me.pool.pull("HeroDeathManager", 0, 0, {});
+		me.game.world.addChild(HeroDeathManager, 0);
+
 		//loads player
 		var player = me.pool.pull("Player2", 0, 420, {});
-
 		me.game.world.addChild(player, 5);
 
 		//allows right arrow key to be used to make player move 
