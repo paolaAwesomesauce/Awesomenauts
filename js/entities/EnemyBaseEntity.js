@@ -34,6 +34,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 	// if statement checks our is less than 0 and if we r declared dead 
 		if (this.health<=0) {
 			this.broken = true;
+			game.data.win =true;
 			this.renderable.setCurrentAnimation("broken");
 		};
 

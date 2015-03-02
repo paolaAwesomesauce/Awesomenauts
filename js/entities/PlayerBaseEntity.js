@@ -32,9 +32,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 
 	update: function(delta){
 	// if statement checks our health and it is less than 0 we r declared dead 
-
 		if (this.health<=0) {
 			this.broken = true;
+			game.data.win = false;
 			this.renderable.setCurrentAnimation("broken");
 		};
 

@@ -23,6 +23,10 @@ game.PlayScreen = me.ScreenObject.extend({
 		var player = me.pool.pull("Player2", 0, 420, {});
 		me.game.world.addChild(player, 5);
 
+		// loads experince manager
+		var experienceManager = me.pool.pull("ExperienceManager", 0, 0, {});
+		me.game.world.addChild(experienceManager, 5);
+
 		//allows right arrow key to be used to make player move 
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
 
