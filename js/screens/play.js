@@ -17,7 +17,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.game.world.addChild(gameTimerManager, 0);
 
 		var heroDeathManager = me.pool.pull("HeroDeathManager", 0, 0, {});
-		me.game.world.addChild(HeroDeathManager, 0);
+		me.game.world.addChild(heroDeathManager, 0);
 
 		//loads player
 		var player = me.pool.pull("Player2", 0, 420, {});
