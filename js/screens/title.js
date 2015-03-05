@@ -10,7 +10,7 @@ game.TitleScreen = me.ScreenObject.extend({
 			init: function(){
 				this._super(me.Renderable, 'init', [270, 240, 300, 50]);
 				this.font = new me.Font("Arial", 46, "white");
-				me.input.registerPointerEvent('poniterdown', this, this.newGame.bind(this), true);
+				me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
 			},
 
 			draw: function(renderer){
@@ -32,6 +32,30 @@ game.TitleScreen = me.ScreenObject.extend({
 			}
 
 			})));
+
+		// put the word awesomenauts! on title screeen 
+		me.game.world.addChild(new (me.Renderable.extend({
+			init: function(){
+				this._super(me.Renderable, 'init', [380, 340, 250, 50]);
+				this.font = new me.Font("Arial", 46, "white");
+				me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
+			},
+
+			draw: function(renderer){
+				this.font.draw(renderer.getContext(), "CONTINUE", this.pos.x, this.pos.y);
+			},
+
+			update: function(dt){
+				return true;
+			},
+
+			newGame: function(){
+				me.input.releasePointerEvent('poniterdown', this);
+				me.state.change(me.state.PLAY);
+			}
+
+			})));
+
 
 	},
 	
