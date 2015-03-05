@@ -5,30 +5,33 @@ game.TitleScreen = me.ScreenObject.extend({
 	onResetEvent: function() {	
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('title-screen')), -10); // TODO
 
-		// binds 'eneter' key
-		me.input.bindKey(me.input.KEY.ENTER, "start");
-
 		// put the word awesomenauts! on title screeen 
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
-				this._super(me.Renderable, 'init', [510, 30, me.game.viewport.width, me.game.viewport.height]);
+				this._super(me.Renderable, 'init', [270, 240, 300, 50]);
 				this.font = new me.Font("Arial", 46, "white");
+				me.input.registerPointerEvent('poniterdown', this, this.newGame.bind(this), true);
 			},
 
 			draw: function(renderer){
-				this.font.draw(renderer.getContext(), "Awesomenuts!", 450, 130);
-				this.font.draw(renderer.getContext(), "Press ENTER to play!", 250, 530);
+				this.font.draw(renderer.getContext(), "START A NEW GAME", this.pos.x, this.pos.y);
+			},
+
+			update: function(dt){
+				return true;
+			},
+
+			newGame: function(){
+				me.input.releasePointerEvent('poniterdown', this);
+				me.save.remove('exp');
+				me.save.remove('exp1');
+				me.save.remove('exp2');
+				me.save.remove('exp3');
+				me.save.remove('exp4');
+				me.state.change(me.state.PLAY);
 			}
 
 			})));
-
-		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge){
-
-			// enters the stae in which we can acctually play the game
-			if (action === "start") {
-				me.state.change(me.state.PLAY);
-			}
-		});
 
 	},
 	
@@ -39,7 +42,6 @@ game.TitleScreen = me.ScreenObject.extend({
 
 	 // unbinds the enter key so when we press it wont send us to the beginning thing
 	onDestroyEvent: function() {
-		me.input.unbindKey(me.input.KEY.ENTER); // TODO
-		me.event.unsubscribe(this.handler);
+
 	}
 });
