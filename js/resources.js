@@ -26,6 +26,9 @@ game.resources = [
 	  // loads title screen player
 	   {name: "title-screen", type:"image", src: "data/img/title.png"},
 
+	   // loads spend exp screen
+	   {name: "exp-screen", type:"image", src: "data/img/loadpic.png"},
+
 
 	/* Atlases 
 	 * @example
