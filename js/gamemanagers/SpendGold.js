@@ -11,7 +11,7 @@ game.SpendGold = Object.extend({
 	update: function(){
 		this.now = new Date().getTime();
 
-		if (me..input.isKeyPressed("buy") && this.now-this.lastBuy >=1000) {
+		if (me.input.isKeyPressed("buy") && this.now-this.lastBuy >=1000) {
 			this.lastBuy = this.now;
 			if (!this.buying) {
 				this.startBuying();

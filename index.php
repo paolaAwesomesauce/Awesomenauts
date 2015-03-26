@@ -35,7 +35,7 @@
 		<script type="text/javascript" src="js/entities/GameManager.js"></script>
 		<script type="text/javascript" src="js/gamemanagers/GameTimerManager.js"></script>
 		<script type="text/javascript" src="js/gamemanagers/SpendGold.js"></script>
-		<script type="text/javascript" src="js/gamemanagers/HeroDeathManager.js"></script>
+		<script type="text/javascript" src="js/gamemanagers/HeroDeathManagers.js"></script>
 		<script type="text/javascript" src="js/entities/PlayerBaseEntity.js"></script>
 
 		<script type="text/javascript" src="js/entities/HUD.js"></script>

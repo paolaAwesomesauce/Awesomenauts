@@ -19,8 +19,7 @@ game.LoadProfile = me.ScreenObject.extend({
 			},
 
 			draw: function(renderer){
-				this.font.draw(renderer.getContext(), "ENTER YOUR USERNAME AND PASSWORD
-					", this.pos.x, this.pos.y);
+				this.font.draw(renderer.getContext(), "ENTER YOUR USERNAME AND PASSWORD", this.pos.x, this.pos.y);
 				
 			}
 
