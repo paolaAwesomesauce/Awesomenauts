@@ -5,6 +5,9 @@ game.LoadProfile = me.ScreenObject.extend({
 	onResetEvent: function() {	
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('load-screen')), -10); // TODO
 
+		document.getElemenyById("input").style.visibility = "visable";
+		document.getElemenyById("load").style.visibility = "visible";
+
 		me.input.unbindKey(me.input.KEY.B);
 		me.input.unbindKey(me.input.KEY.Q);
 		me.input.unbindKey(me.input.KEY.E);
@@ -34,6 +37,7 @@ game.LoadProfile = me.ScreenObject.extend({
 
 	 // unbinds the enter key so when we press it wont send us to the beginning thing
 	onDestroyEvent: function() {
-		
+		document.getElemenyById("input").style.visibility = "visable";
+		document.getElemenyById("load").style.visibility = "visible";	
 	}
 });
