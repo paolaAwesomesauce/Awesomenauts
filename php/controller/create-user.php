@@ -16,7 +16,7 @@
 	//query sends email, username, and encrypted password to database
 	// sends info on the exp points
 	$query = $_SESSION["connection"]->query("INSERT INTO users SET "
-		. "email = '$email',"
+		. "email = '',"
 		. "username = '$username',"
 		. "password = '$hashedPassword',"
 		. "salt = '$salt'"

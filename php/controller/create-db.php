@@ -17,11 +17,3 @@ require_once(__DIR__ . "/../model/config.php");
 		. "exp4 int(4),"
 		. "PRIMARY KEY (id))");
 
-// if/else statement checks if we properly created database
-	if ($query) {
-		//echo "<p>Successfully created table: users</p>";
-	}
-	else{
-		echo "<p>" . $_SESSION["connection"]->error . "</p>";
-	}
-?>
