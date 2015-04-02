@@ -38,7 +38,7 @@ game.PlayerEntity = me.Entity.extend({
 		// variables that help us tell when the last attack on base happend 
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
-
+		this.lastSpear = this.now;
 		// havent used this
 		this.lastAttack = new Date().getTime(); 
 	},
@@ -81,7 +81,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.dead = this.checkIfDead();
 
 		this.checkKeyPressesAndMove();
-
+		this.checkAbilityKeys();
 		this.setAnimation();
 
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -140,6 +140,24 @@ game.PlayerEntity = me.Entity.extend({
 		this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		me.audio.play("stomp");
 	},	
+
+	checkAbilityKeys: function(){
+		if (me.input.isKeyPressed("skill1")) {
+			// this.speedBurst();
+		}else if (me.input.isKeyPressed("skill2")) {
+			// this.eatCreep();
+		}else if (me.input.isKeyPressed("skill3")) {
+			this.throwSpear();
+		}
+	},
+
+	throwSpear: function(){
+		if (this.lastSpear >= game.data.spearTimer && game.data.ability# >= 0) {
+			this.lastSpear = this.now;
+			var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {});
+			me.game.world.addChild(spear, 10);
+		}
+	}
 
 	setAnimation: function(){
 			// if/else stament adds animation for attack when attack key is pressed

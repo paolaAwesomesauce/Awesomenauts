@@ -35,6 +35,8 @@ game.resources = [
 
 	   {name: "new-screen", type:"image", src: "data/img/newpic.png"},
 
+	   {name: "spear", type:"image", src: "data/img/spear.png"},
+
 
 
 	/* Atlases 
