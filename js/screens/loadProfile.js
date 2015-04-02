@@ -37,7 +37,7 @@ game.LoadProfile = me.ScreenObject.extend({
 
 	 // unbinds the enter key so when we press it wont send us to the beginning thing
 	onDestroyEvent: function() {
-		document.getElemenyById("input").style.visibility = "visable";
-		document.getElemenyById("load").style.visibility = "visible";	
+		document.getElemenyById("input").style.visibility = "hidden";
+		document.getElemenyById("load").style.visibility = "hidden";	
 	}
 });
