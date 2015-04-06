@@ -157,7 +157,7 @@ game.PlayerEntity = me.Entity.extend({
 			var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {}, this.facing);
 			me.game.world.addChild(spear, 10);
 		}
-	}
+	},
 
 	setAnimation: function(){
 			// if/else stament adds animation for attack when attack key is pressed

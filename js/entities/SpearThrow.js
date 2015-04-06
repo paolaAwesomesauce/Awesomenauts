@@ -51,4 +51,5 @@ game.SpearThrow = me.Entity.extend({
 
 				me.game.world.removeChild(this);
 			}
-})
+		}
+});

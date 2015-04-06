@@ -4,7 +4,7 @@ game.NewProfile = me.ScreenObject.extend({
 	 */
 	onResetEvent: function() {	
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('new-screen')), -10);
-		document.getElemenyById("input").style.visibility = "visable";
+		document.getElemenyById("input").style.visibility = "visible";
 		document.getElemenyById("register").style.visibility = "visible";
 
 		me.input.unbindKey(me.input.KEY.B);
@@ -17,11 +17,13 @@ game.NewProfile = me.ScreenObject.extend({
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
 				this._super(me.Renderable, 'init', [10, 10, 300, 50]);
+				// settings of text
 				this.font = new me.Font("Arial", 26, "white");
 			},
 
+			// coordinates and adds text 
 			draw: function(renderer){
-				this.font.draw(renderer.getContext(), "PICK A USERNAME AND A PASSWORD=", this.pos.x, this.pos.y);
+				this.font.draw(renderer.getContext(), "PICK A USERNAME AND A PASSWORD", this.pos.x, this.pos.y);
 				
 			}
 

@@ -23,9 +23,9 @@ game.TitleScreen = me.ScreenObject.extend({
 			},
 
 			newGame: function(){
-				me.input.releasePointerEvent('poniterdown', this);
-				me.input.releasePointerEvent('poniterdown', game.data.option1);
-				me.state.change(me.state.NEW);
+				// me.input.releasePointerEvent('poniterdown', this);
+				// me.input.releasePointerEvent('poniterdown', game.data.option1);
+				// me.state.change(me.state.NEW);
 			}
 
 			}));
@@ -47,9 +47,9 @@ game.TitleScreen = me.ScreenObject.extend({
 			},
 
 			newGame: function(){
-				me.input.releasePointerEvent('poniterdown', this);
-				me.input.releasePointerEvent('poniterdown', game.data.option2);
-				me.state.change(me.state.LOAD);
+				// me.input.releasePointerEvent('poniterdown', this);
+				// me.input.releasePointerEvent('poniterdown', game.data.option2);
+				// me.state.change(me.state.LOAD);
 			}
 
 			}));

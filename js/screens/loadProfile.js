@@ -5,7 +5,7 @@ game.LoadProfile = me.ScreenObject.extend({
 	onResetEvent: function() {	
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('load-screen')), -10); // TODO
 
-		document.getElemenyById("input").style.visibility = "visable";
+		document.getElemenyById("input").style.visibility = "visible";
 		document.getElemenyById("load").style.visibility = "visible";
 
 		me.input.unbindKey(me.input.KEY.B);
@@ -14,7 +14,7 @@ game.LoadProfile = me.ScreenObject.extend({
 		me.input.unbindKey(me.input.KEY.W);
 		me.input.unbindKey(me.input.KEY.A);
 
-		// put the word awesomenauts! on title screeen 
+		// puts text on title screeen 
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
 				this._super(me.Renderable, 'init', [10, 10, 300, 50]);

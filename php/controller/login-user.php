@@ -7,7 +7,7 @@
 		'exp1' => '',
 		'exp2' => '',
 		'exp3' => '',
-			'exp4' => '',
+		'exp4' => '',
 	);
 
 	$username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);

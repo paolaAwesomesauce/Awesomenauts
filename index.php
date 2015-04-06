@@ -36,7 +36,6 @@
 
 		<button type='button' id='register'>Register</button>
 		<button type='button' id='load'>Load</button>
-		<button type='button' id='mainmenu'>Main Menu</button>
 
 		<!-- melonJS Library -->
 		<!-- build:js js/app.min.js -->
@@ -111,13 +110,13 @@
 					},
 					dataType: "text"
 				})
-				.success(function(response {
+				.success(function(response) {
 					if (response==="true") {
 						me.state.change(me.state.PLAY);
 					}else{
 						alert(response);
 					}
-				}))
+				})
 				.fail (function(response){
 					alert("Fail");
 				})
@@ -131,8 +130,9 @@
 						password: $('#password').val()
 					},
 					dataType: "text"
+				
 				})
-				.success(function(response {
+				.success(function(response) {
 					if (response==="Invalid username and password") {
 						alert(response);
 					}else{
@@ -142,10 +142,9 @@
 						game.data.exp2 = data["exp2"];
 						game.data.exp3 = data["exp3"];
 						game.data.exp4 = data["exp4"];
-
 						me.state.change(me.state.SPENDEXP);
 					}
-				}))
+				})
 				.fail (function(response){
 					alert("Fail");
 				})
