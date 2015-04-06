@@ -8,6 +8,7 @@ game.HeroDeathManager = Object.extend({
 		// resetS payer when it dies
 		if (game.data.player) {
 			me.game.world.removeChild(game.data.player);
+			me.game.world.removeChild(game.data.miniplayer);
 			me.state.current().resetPlayer(10, 0);
 		}
 
