@@ -37,7 +37,8 @@ var game = {
 		win: "",
 		pausePos: "",
 		buyscreen: "",
-		buytext: ""
+		buytext: "",
+		minimap: ""
 	},
 	
 	
@@ -95,6 +96,7 @@ var game = {
 		me.state.set(me.state.SPENDEXP, new game.SpendExp());
 		me.state.set(me.state.LOAD, new game.LoadProfile());
 		me.state.set(me.state.NEW, new game.NewProfile());
+		me.state.set(me.state.NEW, new game.MiniMap());
 
 		// Starts the game with the title screen
 		me.state.change(me.state.MENU);
